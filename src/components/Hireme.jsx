@@ -15,10 +15,18 @@ const Hireme = () => {
             Do you want any work from me?
           </h2>
           <p className="lg:text-left text-justify max-w-lg text-sm mt-4 text-gray-200 leading-6">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis dicta
-            soluta quos tempore eos accusamus cupiditate, amet in similique
-            sapiente obcaecati odio deleniti architecto corporis ratione.
-            Consequatur a quidem maiores!
+            <ul>
+              <li>Website development</li>
+              <li>Front-end design</li>
+              <li>Back-end development</li>
+              <li>E-commerce solutions</li>
+              <li>Content management systems (CMS) customization</li>
+              <li>Responsive web design</li>
+              <li>Website maintenance and updates</li>
+              <li>SEO optimization</li>
+              <li>Custom web application development</li>
+              <li>Database management</li>
+            </ul>
           </p>
           <button className="btn-primary mt-10">Say Hello</button>
         </div>

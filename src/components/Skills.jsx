@@ -14,13 +14,13 @@ const Skills = () => {
     },
     {
       logo: "logo-nodejs",
-      level: "Beginner",
-      count: 40,
+      level: "Intermediate",
+      count: 65,
     },
     {
       logo: "logo-react",
       level: "Intermediate",
-      count: 80,
+      count: 75,
     },
   ];
   return (

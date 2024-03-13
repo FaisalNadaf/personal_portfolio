@@ -15,33 +15,32 @@ const Project = () => {
     {
       img: project1,
       name: "Movie App",
-      github_link: "https://github.com/Sridhar-C-25",
-      live_link: "https://myreactflix.netlify.app",
+      // github_link: "https://github.com/Sridhar-C-25",
+      // live_link: "https://myreactflix.netlify.app",
     },
     {
       img: project2,
       name: "Job search Web App",
-      github_link: "https://github.com/Sridhar-C-25/jobsearchapp",
-      live_link: "https://myjobsearch.netlify.app",
+      // github_link: "https://github.com/Sridhar-C-25/jobsearchapp",
+      // live_link: "https://myjobsearch.netlify.app",
     },
     {
       img: project3,
       name: "Highking",
-      github_link: "https://github.com/Sridhar-C-25/highking",
-      live_link: "https://highking01.netlify.app",
+      // github_link: "https://github.com/Sridhar-C-25/highking",
+      // live_link: "https://highking01.netlify.app",
     },
     {
       img: project4,
       name: "React Nav",
-      github_link:
-        "https://github.com/Sridhar-C-25/reacttailwindnavbar-with-dropdown",
-      live_link: "https://reacttailwindnavbar.netlify.app",
+      // github_link: "https://github.com/Sridhar-C-25/reacttailwindnavbar-with-dropdown",
+      // live_link: "https://reacttailwindnavbar.netlify.app",
     },
     {
       img: project5,
       name: "Vue Country",
-      github_link: "https://github.com/Sridhar-C-25",
-      live_link: "https://vuecountry05.netlify.app",
+      // github_link: "https://github.com/Sridhar-C-25",
+      // live_link: "https://vuecountry05.netlify.app",
     },
   ];
   return (

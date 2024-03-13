@@ -2,9 +2,9 @@ import React from "react";
 import aboutImg from "../assets/images/about.png";
 const About = () => {
   const info = [
-    { text: "Years experience", count: "04" },
-    { text: "Completed Projects", count: "24" },
-    { text: "Companies Work", count: "06" },
+    { text: "Years experience", count: "01" },
+    { text: "Completed Projects", count: "08" },
+    { text: "Companies Work", count: "1" },
   ];
   return (
     <section id="about" className="py-10 text-white">
@@ -17,10 +17,11 @@ const About = () => {
           <div className="p-2">
             <div className="text-gray-300 my-3">
               <p className="text-justify leading-7 w-11/12 mx-auto">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa
-                eos, quam vel quisquam, explicabo sit labore dignissimos optio
-                ratione quibusdam doloribus pariatur consequuntur sint.
-                Reprehenderit cupiditate possimus facere quasi voluptatem?
+                I'm a freelance web developer, adept at crafting dynamic and
+                user-friendly websites. With expertise in both front-end and
+                back-end technologies, I specialize in creating tailored digital
+                solutions that exceed expectations. Let's bring your vision to
+                life together.
               </p>
               <div className="flex mt-10 items-center gap-7">
                 {info.map((content) => (
@@ -36,7 +37,7 @@ const About = () => {
               <br />
               <br />
               <a href="./src/assets/Code_a_program.pdf" download>
-                <button className="btn-primary">Download CV</button>
+                <button className="btn-primary">Download Resume</button>
               </a>
             </div>
           </div>
