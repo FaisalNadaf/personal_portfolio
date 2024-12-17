@@ -1,34 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/** @format */
 
-html {
-  @apply font-Poppins scroll-smooth;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	scroll-behavior: smooth;
+	font-family: "Poppins", sans-serif;
 }
+html.lenis,
+html.lenis body {
+	height: auto;
+}
+
+.lenis.lenis-smooth {
+	scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+	overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+	overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+	pointer-events: none;
+}
+
 body {
-  @apply box-border bg-gray-900 text-gray-100;
-}
-.btn-primary {
-  @apply bg-cyan-600 font-semibold text-white md:mx-0 mx-auto rounded-full py-3 px-6 flex items-center gap-2;
-}
-
-.aboutImg::after {
-  @apply content-[''] w-full left-0 top-0 rounded-xl rotate-12 h-full absolute bg-gray-600 -z-10;
+	margin: 0px !important;
+	padding: 0;
+	font-family: "Montserrat", sans-serif;
 }
 
-.swiper-pagination-bullet {
-  @apply bg-white;
+/* width */
+::-webkit-scrollbar {
+	width: 4px;
+	height: 80px;
 }
 
-input,
-textarea {
-  @apply bg-gray-700 outline-none rounded-lg p-3;
-}
-::placeholder {
-  @apply text-lg;
+/* Track */
+::-webkit-scrollbar-track {
+	background: #222a35;
 }
 
-::selection {
-  @apply bg-cyan-600;
+/* Handle */
+::-webkit-scrollbar-thumb {
+	background: #575c66;
+	border-radius: 6px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+	background: #626970;
+}
+
+::-webkit-backdrop-filter {
+	blur: 3px saturate(106%);
 }
