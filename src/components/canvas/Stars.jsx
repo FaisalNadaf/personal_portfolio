@@ -16,16 +16,16 @@ const StyledCanvasWrapper = styled.div`
 const Stars = (props) => {
 	const ref = useRef();
 	const [sphere] = useState(() =>
-		random.inSphere(new Float32Array(2000), { radius: 1.2 }),
+		random.inSphere(new Float32Array(5000), { radius: 1.2 }),
 	);
 
 	useFrame((state, delta) => {
-		ref.current.rotation.x -= delta / 50;
-		ref.current.rotation.y -= delta / 5;
+		ref.current.rotation.x -= delta / 10;
+		ref.current.rotation.y -= delta / 15;
 	});
 
 	return (
-		<group rotation={[0, 0, Math.PI / 4]}>
+		<group rotation={[990, 990, Math.PI / 4]}>
 			<Points
 				ref={ref}
 				positions={sphere}
@@ -35,7 +35,7 @@ const Stars = (props) => {
 				<PointMaterial
 					transparent
 					color="#f272c8"
-					size={0.005}
+					size={0.003}
 					sizeAttenuation={true}
 					depthWrite={false}
 				/>
