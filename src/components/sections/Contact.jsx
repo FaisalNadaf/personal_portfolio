@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
+import { toast } from "react-toastify";
 
 const Container = styled.div`
 	display: flex;
@@ -129,7 +130,7 @@ const Contact = () => {
 		const fields = ["from_email", "from_name", "subject", "message"];
 		for (let field of fields) {
 			if (!formData.get(field)) {
-				alert("Please fill in all fields.");
+				toast("Please fill in all fields.");
 				return;
 			}
 		}
@@ -138,18 +139,18 @@ const Contact = () => {
 		emailjs
 			.sendForm(
 				"service_br00yk5", // Replace with your EmailJS service ID
-				"template_54aw1zk", // Replace with your EmailJS template ID
+				"template_igrpbae", // Replace with your EmailJS template ID
 				form.current, // Reference to the form element
 				"w95W4XH0su1-P8i_q", // Your EmailJS public key
 			)
 			.then(
 				(result) => {
-					alert("Message Sent! I Will Reach You Soon");
+					toast("Message Sent! I Will Reach You Soon");
 					form.current.reset(); // Reset the form after successful submission
 					setLoading(false); // Reset loading state
 				},
 				(error) => {
-					alert("An error occurred: " + error.text); // Show error message
+					toast("An error occurred: " + error.text); // Show error message
 					setLoading(false); // Reset loading state
 				},
 			);
@@ -167,6 +168,7 @@ const Contact = () => {
 					onSubmit={handelSubmit}>
 					<ContactTitle>Email Me 🚀</ContactTitle>
 					<ContactInput
+						type="email"
 						placeholder="Your Email"
 						name="from_email"
 					/>

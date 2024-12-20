@@ -12,6 +12,8 @@ import StartCanvas from "./components/canvas/Stars";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
+import CertificateSwiper from "./components/sections/CertificateSwiper";
+import { ToastContainer } from "react-toastify";
 
 const Body = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -38,8 +40,6 @@ const Wrapper = styled.div`
 
 function App() {
 	return (
-
-
 		<ThemeProvider theme={darkTheme}>
 			<BrowserRouter>
 				<Navbar />
@@ -51,6 +51,7 @@ function App() {
 							<Skills />
 							<Experience />
 						</Wrapper>
+						<CertificateSwiper title="My Certifications" />
 						<Projects />
 						<Wrapper>
 							<Education />
@@ -59,7 +60,13 @@ function App() {
 						<Footer />
 					</div>
 				</Body>
-			</BrowserRouter>
+			</BrowserRouter>{" "}
+			<ToastContainer
+				position="bottom-right"
+				autoClose={3000}
+				hideProgressBar={false}
+				theme="dark"
+			/>
 		</ThemeProvider>
 	);
 }

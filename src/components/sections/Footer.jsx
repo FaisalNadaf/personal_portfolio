@@ -3,13 +3,13 @@
 import React from "react";
 import styled from "styled-components";
 import { Bio } from "../../data/constants";
+
 import {
 	FacebookRounded,
 	Instagram,
 	LinkedIn,
 	Twitter,
 } from "@mui/icons-material";
-
 const FooterContainer = styled.div`
 	width: 100%;
 	padding: 2rem 0;
@@ -85,6 +85,7 @@ const Copyright = styled.p`
 const Footer = () => {
 	return (
 		<FooterContainer>
+						
 			<FooterWrapper>
 				<Logo>Faisal Nadaf</Logo>
 				<Nav>

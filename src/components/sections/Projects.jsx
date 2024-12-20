@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { projects } from "../../data/constants";
 import ProjectCard from "../cards/ProjectCard";
 
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
