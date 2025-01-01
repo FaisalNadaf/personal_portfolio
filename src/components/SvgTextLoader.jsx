@@ -46,7 +46,7 @@ const styles = {
 		fontSize: "4rem",
 		// stroke: "#f6e9fe",
 		stroke: "#414141FF",
-        
+
 		strokeWidth: 2,
 		letterSpacing: "-1px",
 		animation: "stoke_animate 4s infinite alternate",
