@@ -12,6 +12,7 @@ import StartCanvas from "./components/canvas/Stars";
 import Projects from "./components/sections/Projects";
 import Contact from "./components/sections/Contact";
 import Footer from "./components/sections/Footer";
+
 import CertificateSwiper from "./components/sections/CertificateSwiper";
 import { ToastContainer } from "react-toastify";
 
