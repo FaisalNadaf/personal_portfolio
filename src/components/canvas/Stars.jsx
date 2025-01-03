@@ -16,7 +16,7 @@ const StyledCanvasWrapper = styled.div`
 const Stars = React.memo((props) => {
 	const ref = useRef();
 	const sphere = useMemo(
-		() => random.inSphere(new Float32Array(5000), { radius: 1.2 }),
+		() => random.inSphere(new Float32Array(1000), { radius: 1}),
 		[]
 	);
 

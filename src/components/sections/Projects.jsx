@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { projects } from "../../data/constants";
 import ProjectCard from "../cards/ProjectCard";
+import CanvasCursor from "../cursor/CanvasCursor";
 
 
 const Container = styled.div`
@@ -95,6 +96,7 @@ const Projects = () => {
   const [toggle, setToggle] = useState("all");
   return (
     <Container id="Projects">
+      <CanvasCursor />
       <Wrapper>
         <Title>Projects</Title>
         <Desc

@@ -15,6 +15,9 @@ import Footer from "./components/sections/Footer";
 
 import CertificateSwiper from "./components/sections/CertificateSwiper";
 import { ToastContainer } from "react-toastify";
+import SnowflakeCursor from "./components/cursor/SnowflakeCursor";
+import RippleCursor from "./components/cursor/RippleCursor";
+import BubbleCursor from "./components/cursor/BubbleCursor";
 
 const Body = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -45,10 +48,12 @@ function App() {
 			<BrowserRouter>
 				<Navbar />
 				<Body>
+					<BubbleCursor />
+					<SnowflakeCursor />
 					{/* <StartCanvas /> */}
 					<div>
 						<Hero />
-			
+
 						<Wrapper>
 							<Skills />
 							<Experience />

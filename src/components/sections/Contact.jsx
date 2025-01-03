@@ -4,6 +4,7 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import emailjs from "@emailjs/browser";
 import { toast } from "react-toastify";
+import MagnetoButton from "../MagnetoButton";
 
 const Container = styled.div`
 	display: flex;
@@ -69,6 +70,13 @@ const ContactTitle = styled.div`
 	margin-bottom: 6px;
 	font-weight: 600;
 	color: ${({ theme }) => theme.text_primary};
+`;
+
+const ButtonContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 `;
 
 const ContactInput = styled.input`
@@ -185,11 +193,20 @@ const Contact = () => {
 						name="message"
 						rows={4}
 					/>
-					<ContactButton
+					<ButtonContainer>
+						{" "}
+						<MagnetoButton
+							disabled={loading}
+							type="submit"
+							text={loading ? "Sending..." : "Send"}
+						/>
+					</ButtonContainer>
+
+					{/* <ContactButton
 						type="submit"
 						value={loading ? "Sending..." : "Send"}
 						disabled={loading}
-					/>
+					/> */}
 				</ContactForm>
 			</Wrapper>
 		</Container>
