@@ -18,6 +18,11 @@ import { ToastContainer } from "react-toastify";
 import SnowflakeCursor from "./components/cursor/SnowflakeCursor";
 import RippleCursor from "./components/cursor/RippleCursor";
 import BubbleCursor from "./components/cursor/BubbleCursor";
+<<<<<<< HEAD
+import ClickSpark from "./components/cursor/Clickspark";
+import Hackathon from "./components/sections/Hackathon";
+=======
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 
 const Body = styled.div`
 	background-color: ${({ theme }) => theme.bg};
@@ -49,6 +54,34 @@ function App() {
 				<Navbar />
 				<Body>
 					<BubbleCursor />
+<<<<<<< HEAD
+
+					<ClickSpark
+						sparkColor="#fff"
+						sparkSize={15}
+						sparkRadius={15}
+						sparkCount={6}
+						duration={500}>
+						{/* <SnowflakeCursor /> */}
+						{/* <StartCanvas /> */}
+						<div>
+							<Hero />
+
+							<Wrapper>
+								<Skills />
+								<Experience />
+							</Wrapper>
+							<CertificateSwiper title="My Certifications" />
+							<Hackathon/>
+							<Projects />
+							<Wrapper>
+								<Education />
+								<Contact />
+							</Wrapper>
+							<Footer />
+						</div>
+					</ClickSpark>
+=======
 					<SnowflakeCursor />
 					{/* <StartCanvas /> */}
 					<div>
@@ -66,6 +99,7 @@ function App() {
 						</Wrapper>
 						<Footer />
 					</div>
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 				</Body>
 			</BrowserRouter>{" "}
 			<ToastContainer

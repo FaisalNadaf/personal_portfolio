@@ -1,6 +1,9 @@
 /** @format */
 
+<<<<<<< HEAD
+=======
 "use client";
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 import React, { useEffect, useRef } from "react";
 class Particle {
 	lifeSpan;
@@ -9,14 +12,22 @@ class Particle {
 	position;
 	baseDimension;
 	constructor(x, y) {
+<<<<<<< HEAD
+		this.initialLifeSpan = Math.floor(Math.random() * 50 + 50);
+=======
 		this.initialLifeSpan = Math.floor(Math.random() * 60 + 60);
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 		this.lifeSpan = this.initialLifeSpan;
 		this.velocity = {
 			x: (Math.random() < 0.5 ? -1 : 1) * (Math.random() / 10),
 			y: -0.4 + Math.random() * -1,
 		};
 		this.position = { x, y };
+<<<<<<< HEAD
+		this.baseDimension = 1;
+=======
 		this.baseDimension = 4;
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 	}
 	update(context) {
 		this.position.x += this.velocity.x;
@@ -56,9 +67,12 @@ const BubbleCursor = ({ wrapperElement }) => {
 		let height = window.innerHeight;
 		const init = () => {
 			if (prefersReducedMotion.matches) {
+<<<<<<< HEAD
+=======
 				console.log(
 					"This browser has prefers reduced motion turned on, so the cursor did not init",
 				);
+>>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 				return false;
 			}
 			canvas = canvasRef.current;

@@ -85,8 +85,7 @@ const ItemWrapper = styled.div`
 	gap: 8px;
 `;
 
-const ExperienceCard = ({ experience }) => {
-<<<<<<< HEAD
+const HacakathonCard = ({ experience }) => {
 	return (
 		<VerticalTimelineElement
 			icon={
@@ -127,7 +126,7 @@ const ExperienceCard = ({ experience }) => {
 					<>
 						<br />
 						<Skills>
-							<b>Skills</b>
+							<b>Tech & Skills</b>
 							<ItemWrapper>
 								{experience?.skills?.map((skill, index) => (
 									<Skill key={index}>• {skill}</Skill>
@@ -139,62 +138,6 @@ const ExperienceCard = ({ experience }) => {
 			</Description>
 		</VerticalTimelineElement>
 	);
-=======
-  return (
-    <VerticalTimelineElement
-      icon={
-        <img
-          width="100%"
-          height="100%"
-          alt={experience?.company}
-          style={{ borderRadius: "50%", objectFit: "cover" }}
-          src={experience?.img}
-        />
-      }
-      contentStyle={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        background: "#1d1836",
-        color: "#fff",
-        boxShadow: "rgba(23, 92, 230, 0.15) 0px 4px 24px",
-        backgroundColor: "rgba(17, 25, 40, 0.83)",
-        border: "1px solid rgba(255, 255, 255, 0.125)",
-        borderRadius: "6px",
-      }}
-      contentArrowStyle={{
-        borderRight: "7px solid  rgba(255, 255, 255, 0.3)",
-      }}
-      date={experience?.date}
-    >
-      <Top>
-        <Image src={experience?.img} />
-        <Body>
-          <Role>{experience?.role}</Role>
-          <Company>{experience?.company}</Company>
-          <Date>{experience?.date}</Date>
-        </Body>
-      </Top>
-      <Description>
-        {experience?.desc && <Span>{experience.desc}</Span>}
-        {experience?.skills && (
-          <>
-            <br />
-            <Skills>
-              <b>Skills</b>
-              <ItemWrapper>
-                {experience?.skills?.map((skill, index) => (
-                  <Skill key={index
-                  }>• {skill}</Skill>
-                ))}
-              </ItemWrapper>
-            </Skills>
-          </>
-        )}
-      </Description>
-    </VerticalTimelineElement>
-  );
->>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
 };
 
-export default ExperienceCard;
+export default HacakathonCard;
