@@ -1,201 +1,132 @@
 /** @format */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link as LinkR } from "react-router-dom";
-import styled, { useTheme } from "styled-components";
+import { MenuRounded, CloseRounded } from "@mui/icons-material";
 import { Bio } from "../data/constants";
-import { MenuRounded } from "@mui/icons-material";
 import SvgTextLoader from "./SvgTextLoader";
 
-const Nav = styled.div`
-	background-color: ${({ theme }) => theme.bg};
-	height: 80px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 1rem;
-	position: sticky;
-	top: 0;
-	z-index: 10;
-	color: white;
-`;
+const NAV_LINKS = [
+	{ href: "#About", label: "About" },
+	{ href: "#Skills", label: "Skills" },
+	{ href: "#Experience", label: "Experience" },
+	{ href: "#Projects", label: "Projects" },
+	{ href: "#Achievements", label: "Achievements" },
+	{ href: "#Certifications", label: "Certifications" },
+	{ href: "#Education", label: "Education" },
+	{ href: "#Contact", label: "Contact" },
+];
 
-const NavbarContainer = styled.div`
-	width: 100%;
-	max-width: 1200px;
-	padding: 0 24px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: 1rem;
-`;
-const NavLogo = styled(LinkR)`
-	width: 80%;
-	padding: 0 6px;
-`;
+const navLinkClass =
+	"whitespace-nowrap text-sm font-medium text-ink-primary/90 hover:text-accent transition-colors duration-200";
 
-const NavItems = styled.ul`
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	gap: 32px;
-	padding: 0 6px;
-	list-style: none;
-
-	@media screen and (max-width: 768px) {
-		display: none;
-	}
-`;
-
-const NavLink = styled.a`
-	color: ${({ theme }) => theme.text_primary};
-	font-weight: 500;
-	cursor: pointer;
-	transition: all 0.2s ease-in-out;
-	text-decoration: none;
-	&:hover {
-		color: ${({ theme }) => theme.primary};
-	}
-`;
-
-const ButtonContainer = styled.div`
-	width: 80%;
-	height: 100%;
-	display: flex;
-	justify-content: end;
-	align-items: center;
-	padding: 0 6px;
-	@media screen and (max-width: 768px) {
-		display: none;
-	}
-`;
-
-const GithubButton = styled.a`
-	border: 1px solid ${({ theme }) => theme.primary};
-	color: ${({ theme }) => theme.primary};
-	justify-content: center;
-	display: flex;
-	align-items: center;
-	border-radius: 20px;
-	cursor: pointer;
-	padding: 10px 20px;
-	font-size: 16px;
-	font-weight: 500;
-	transition: all 0.6s ease-in-out;
-	text-decoration: none;
-	&:hover {
-		background: ${({ theme }) => theme.primary};
-		color: ${({ theme }) => theme.text_primary};
-	}
-`;
-
-const MobileIcon = styled.div`
-	height: 100%;
-	display: flex;
-	align-items: center;
-	color: ${({ theme }) => theme.text_primary};
-	display: none;
-	@media screen and (max-width: 768px) {
-		display: block;
-	}
-`;
-
-const MobileMenu = styled.ul`
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: start;
-	gap: 16px;
-	padding: 0 6px;
-	list-style: none;
-	width: 100%;
-	padding: 12px 40px 24px 40px;
-	background: ${({ theme }) => theme.card_light + 99};
-	position: absolute;
-	top: 80px;
-	right: 0;
-
-	transition: all 0.6s ease-in-out;
-	transform: ${({ isOpen }) =>
-		isOpen ? "translateY(0)" : "translateY(-100%)"};
-	border-radius: 0 0 20px 20px;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-	opacity: ${({ isOpen }) => (isOpen ? "100%" : "0")};
-	z-index: ${({ isOpen }) => (isOpen ? "1000" : "-1000")};
-`;
+// Smooth, slightly anticipatory ease — feels premium without being slow
+const SMOOTH_EASE = "ease-[cubic-bezier(0.22,0.61,0.36,1)]";
+const TRANSITION = `transition-all duration-[600ms] ${SMOOTH_EASE}`;
 
 const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const theme = useTheme();
+	const [scrolled, setScrolled] = useState(false);
+	const close = () => setIsOpen(false);
+
+	useEffect(() => {
+		const onScroll = () => setScrolled(window.scrollY > 20);
+		onScroll();
+		window.addEventListener("scroll", onScroll, { passive: true });
+		return () => window.removeEventListener("scroll", onScroll);
+	}, []);
+
 	return (
-		<Nav>
-			<NavbarContainer>
-				<NavLogo to="/">
-					{" "}
-					<SvgTextLoader />
-				</NavLogo>
+		<nav className="sticky top-0 z-40 w-full">
+			{/* Outer wrapper — animates inset (top + side margins) */}
+			<div
+				className={`px-4 sm:px-6 ${TRANSITION} ${
+					scrolled ? "pt-4 md:pt-5" : "pt-0"
+				}`}>
+				<div
+					className={`mx-auto ${TRANSITION} ${
+						scrolled ? "max-w-6xl" : "max-w-container"
+					}`}>
+					<div
+						className={`relative flex items-center justify-between border-white/5 bg-bg/70 px-6 backdrop-blur-xl supports-[backdrop-filter]:bg-bg/55 ${TRANSITION} ${
+							scrolled
+								? "h-14 rounded-full border shadow-xl shadow-black/40 ring-1 ring-white/10"
+								: "h-16 rounded-none border-b md:h-20"
+						}`}>
+						<LinkR
+							to="/"
+							className="flex items-center"
+							aria-label="Home">
+							<SvgTextLoader />
+						</LinkR>
 
-				<MobileIcon onClick={() => setIsOpen(!isOpen)}>
-					<MenuRounded style={{ color: "inherit" }} />
-				</MobileIcon>
+						<ul className="hidden items-center gap-5 lg:flex xl:gap-7">
+							{NAV_LINKS.map((link) => (
+								<li key={link.href}>
+									<a
+										href={link.href}
+										className={navLinkClass}>
+										{link.label}
+									</a>
+								</li>
+							))}
+						</ul>
 
-				<NavItems>
-					<NavLink href="#About">About</NavLink>
-					<NavLink href="#Skills">Skills</NavLink>
-					<NavLink href="#Experience">Experience</NavLink>
-					<NavLink href="#Projects">Projects</NavLink>
-					<NavLink href="#Education">Education</NavLink>
-				</NavItems>
+						<div className="hidden lg:flex">
+							<a
+								href={Bio.github}
+								target="_blank"
+								rel="noreferrer"
+								className={`inline-flex items-center rounded-full border border-accent/60 text-sm font-medium text-accent transition-all duration-300 hover:bg-accent hover:text-white hover:shadow-glow ${
+									scrolled ? "px-4 py-1.5" : "px-5 py-2"
+								}`}>
+								Github
+							</a>
+						</div>
 
-				{isOpen && (
-					<MobileMenu isOpen={isOpen}>
-						<NavLink
-							onClick={() => setIsOpen(!isOpen)}
-							href="#About">
-							About
-						</NavLink>
-						<NavLink
-							onClick={() => setIsOpen(!isOpen)}
-							href="#Skills">
-							Skills
-						</NavLink>
-						<NavLink
-							onClick={() => setIsOpen(!isOpen)}
-							href="#Experience">
-							Experience
-						</NavLink>
-						<NavLink
-							onClick={() => setIsOpen(!isOpen)}
-							href="#Projects">
-							Projects
-						</NavLink>
-						<NavLink
-							onClick={() => setIsOpen(!isOpen)}
-							href="#Education">
-							Education
-						</NavLink>
-						<GithubButton
-							href={Bio.github}
-							target="_Blank"
-							style={{
-								background: theme.primary,
-								color: theme.text_primary,
-							}}>
-							Github Profile
-						</GithubButton>
-					</MobileMenu>
-				)}
+						<button
+							type="button"
+							aria-label={isOpen ? "Close menu" : "Open menu"}
+							aria-expanded={isOpen}
+							onClick={() => setIsOpen((v) => !v)}
+							className="inline-flex items-center justify-center rounded-md p-2 text-ink-primary lg:hidden">
+							{isOpen ? <CloseRounded /> : <MenuRounded />}
+						</button>
 
-				<ButtonContainer>
-					<GithubButton
-						href={Bio.github}
-						target="_Blank">
-						Github Profile
-					</GithubButton>
-				</ButtonContainer>
-			</NavbarContainer>
-		</Nav>
+						{/* Mobile dropdown — anchored to the inner pill */}
+						<div
+							className={`absolute left-0 right-0 top-full mt-2 origin-top overflow-hidden rounded-2xl border border-white/5 bg-bg-elevated/95 backdrop-blur-md transition-all duration-300 lg:hidden ${
+								isOpen
+									? "pointer-events-auto translate-y-0 opacity-100"
+									: "pointer-events-none -translate-y-2 opacity-0"
+							}`}>
+							<ul className="flex flex-col gap-1 p-4">
+								{NAV_LINKS.map((link) => (
+									<li key={link.href}>
+										<a
+											href={link.href}
+											onClick={close}
+											className="block rounded-md px-3 py-2 text-base font-medium text-ink-primary/90 hover:bg-white/5 hover:text-accent">
+											{link.label}
+										</a>
+									</li>
+								))}
+								<li className="mt-2">
+									<a
+										href={Bio.github}
+										target="_blank"
+										rel="noreferrer"
+										onClick={close}
+										className="block rounded-full bg-accent px-5 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-accent-hover">
+										Github Profile
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
 	);
 };
 

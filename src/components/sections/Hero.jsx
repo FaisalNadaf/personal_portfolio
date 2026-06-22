@@ -1,238 +1,135 @@
 /** @format */
 
-import React from "react";
-import styled from "styled-components";
-import { Bio } from "../../data/constants";
+import React, { useState } from "react";
 import Typewriter from "typewriter-effect";
+import { motion } from "framer-motion";
+import { Tilt } from "react-tilt";
+
+import { Bio } from "../../data/constants";
 import HeroImg from "../../images/HeroImage.jpg";
 import HeroBgAnimation from "../HeroBgAnimation";
-import { Tilt } from "react-tilt";
-import { motion } from "framer-motion";
+import StarCanvas from "../canvas/Stars";
+import MagnetoButton from "../MagnetoButton";
 import {
 	headContainerAnimation,
 	headContentAnimation,
 	headTextAnimation,
 } from "../../utils/motion";
-import StarCanvas from "../canvas/Stars";
-import MagnetoButton from "../MagnetoButton";
-
-const HeroContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	position: relative;
-	padding: 80px 30px;
-	z-index: 1;
-
-	@media (max-width: 960px) {
-		padding: 66px 16px;
-	}
-
-	@media (max-width: 640px) {
-		padding: 32px 16px;
-	}
-
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 70% 95%, 0 100%);
-`;
-const HeroInnerContainer = styled.div`
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	max-width: 1100px;
-
-	@media (max-width: 960px) {
-		flex-direction: column;
-	}
-`;
-const HeroLeftContainer = styled.div`
-	width: 100%;
-	order: 1;
-	@media (max-width: 960px) {
-		order: 2;
-		margin-bottom: 30px;
-		display: flex;
-		gap: 6px;
-		flex-direction: column;
-		align-items: center;
-	}
-`;
-const HeroRightContainer = styled.div`
-	width: 100%;
-	order: 2;
-	display: flex;
-	justify-content: end;
-	@media (max-width: 960px) {
-		order: 1;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-contents: center;
-		margin-bottom: 80px;
-	}
-
-	@media (max-width: 640px) {
-		margin-bottom: 30px;
-	}
-`;
-
-const Title = styled.div`
-	font-weight: 700;
-	font-size: 50px;
-	color: ${({ theme }) => theme.text_primary};
-	line-height: 68px;
-
-	@media (max-width: 960px) {
-		text-align: center;
-	}
-
-	@media (max-width: 960px) {
-		font-size: 40px;
-		line-height: 48px;
-		margin-bottom: 8px;
-	}
-`;
-
-const TextLoop = styled.div`
-	font-weight: 600;
-	font-size: 32px;
-	display: flex;
-	gap: 12px;
-	color: ${({ theme }) => theme.text_primary};
-	line-height: 68px;
-
-	@media (max-width: 960px) {
-		text-align: center;
-	}
-
-	@media (max-width: 960px) {
-		font-size: 22px;
-		line-height: 48px;
-		margin-bottom: 16px;
-	}
-`;
-
-const Span = styled.div`
-	cursor: pointer;
-	color: ${({ theme }) => theme.primary};
-`;
-
-const SubTitle = styled.div`
-	font-size: 20px;
-	line-height: 32px;
-	margin-bottom: 42px;
-	color: ${({ theme }) => theme.text_primary + 95};
-
-	@media (max-width: 960px) {
-		text-align: center;
-	}
-
-	@media (max-width: 960px) {
-		font-size: 16px;
-		line-height: 32px;
-	}
-`;
-
-const ResumeButton = styled.a`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 70%;
-	text-decoration: none;
-`;
-
-const Img = styled.img`
-	border-radius: 50%;
-	width: 100%;
-	height: 100%;
-	max-width: 400px;
-	max-height: 400px;
-	border: 2px solid ${({ theme }) => theme.primary};
-
-	@media (max-width: 640px) {
-		max-width: 280px;
-		max-height: 280px;
-	}
-`;
-
-const HeroBg = styled.div`
-	position: absolute;
-	display: flex;
-	justify-content: end;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	max-width: 1360px;
-	overflow: hidden;
-	padding: 0 30px;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateX(-50%) translateY(-50%);
-	transform: translateX(-50%) translateY(-50%);
-
-	@media (max-width: 960px) {
-		justify-content: center;
-		padding: 0 0px;
-	}
-`;
+import Orb from "../costom/Orb";
 
 const Hero = () => {
+	const [orbActive, setOrbActive] = useState(false);
 	return (
-		<div id="About">
-			<HeroContainer>
-				<HeroBg>
+		<section
+			id="About"
+			className="relative isolate overflow-hidden [clip-path:polygon(0_0,100%_0,100%_100%,70%_95%,0_100%)]">
+			{/* Ambient blur orbs */}
+			<div className="absolute -left-32 top-20 -z-10 h-96 w-96 rounded-full bg-accent/10 blur-3xl" />
+			<div className="absolute -right-32 bottom-20 -z-10 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl" />
+
+			{/* Star canvas + decorative SVG bg */}
+			<div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center md:justify-end">
+				<div className="relative h-full w-full max-w-[1360px] px-0 md:px-8">
 					<StarCanvas />
 					<HeroBgAnimation />
-				</HeroBg>
+				</div>
+			</div>
 
-				<motion.div {...headContainerAnimation}>
-					<HeroInnerContainer>
-						<HeroLeftContainer>
-							<motion.div {...headTextAnimation}>
-								<Title>
-									Hi, I am <br /> {Bio.name}
-								</Title>
-								<TextLoop>
-									I am a
-									<Span>
-										<Typewriter
-											options={{
-												strings: Bio.roles,
-												autoStart: true,
-												loop: true,
-											}}
-										/>
-									</Span>
-								</TextLoop>
-							</motion.div>
+			<motion.div
+				{...headContainerAnimation}
+				className="section-container py-20 md:py-10">
+				<div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
+					{/* Left: text */}
+					<div className="order-2 flex flex-col items-center text-center md:order-1 md:items-start md:text-left">
+						<motion.div {...headTextAnimation}>
+							<span className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-400">
+								<span className="relative flex h-2 w-2">
+									<span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+									<span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+								</span>
+								Available for work
+							</span>
 
-							<motion.div {...headContentAnimation}>
-								<SubTitle>{Bio.description}</SubTitle>
-							</motion.div>
+							<h1 className="text-4xl font-bold leading-[1.1] tracking-tight text-ink-primary sm:text-5xl md:text-6xl">
+								Hi, I am <br />
+								<span className="text-gradient-accent">{Bio.name}</span>
+							</h1>
 
-							<ResumeButton
-								href={Bio.resume}
-								target="_blank">
-								<MagnetoButton text={"Resume"} />
-							</ResumeButton>
-						</HeroLeftContainer>
-						<HeroRightContainer>
-							<motion.div {...headContentAnimation}>
-								<Tilt>
-									<Img
-										src={HeroImg}
-										alt="Faisal Nadaf"
+							<div className="mt-4 flex items-center justify-center gap-3 text-2xl font-semibold text-ink-primary md:justify-start md:text-3xl">
+								<span>I am a</span>
+								<span className="text-accent">
+									<Typewriter
+										options={{
+											strings: Bio.roles,
+											autoStart: true,
+											loop: true,
+										}}
 									/>
-								</Tilt>
-							</motion.div>
-						</HeroRightContainer>
-					</HeroInnerContainer>
-				</motion.div>
-			</HeroContainer>
-		</div>
+								</span>
+							</div>
+						</motion.div>
+
+						<motion.p
+							{...headContentAnimation}
+							className="mt-6 max-w-xl text-base leading-relaxed text-ink-secondary md:text-lg">
+							{Bio.description}
+						</motion.p>
+
+						<a
+							href={Bio.resume}
+							target="_blank"
+							rel="noreferrer"
+							className="mt-12 inline-flex self-center no-underline">
+							<MagnetoButton text={"Resume"} />
+						</a>
+					</div>
+
+					{/* Right: image with focused grid backdrop + orb */}
+					<div className="order-1 flex justify-center md:order-2 md:justify-end">
+						<motion.div
+							{...headContentAnimation}
+							onMouseEnter={() => setOrbActive(true)}
+							onMouseLeave={() => setOrbActive(false)}
+							className="relative">
+							{/* Focused grid backdrop — sits behind the image with radial fade */}
+							<div
+								aria-hidden
+								className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[140%] w-[140%] -translate-x-1/2 -translate-y-1/2 bg-grid-lines mask-radial-fade"
+							/>
+
+							{/* WebGL Orb — sits ABOVE the image, additive-blended.
+							    pointer-events-none lets Tilt receive mouse events on the image,
+							    forceHoverState keeps the orb animating continuously. */}
+							<div
+								aria-hidden
+								className="pointer-events-none absolute left-1/2 top-1/2 z-10 aspect-square w-[22rem] -translate-x-1/2 -translate-y-1/2 mix-blend-screen sm:w-[26rem] md:w-[34rem]">
+								<Orb
+									hoverIntensity={0.8}
+									rotateOnHover
+									hue={0}
+									forceHoverState={orbActive}
+									backgroundColor="#09090b"
+								/>
+							</div>
+
+							<Tilt
+								options={{
+									max: 12,
+									scale: 1.02,
+									speed: 800,
+								}}>
+								<img
+									src={HeroImg}
+									alt="Faisal Nadaf"
+									loading="eager"
+									className="pointer-events-auto relative h-auto w-68 rounded-full border-2 border-accent/70 shadow-glow-lg ring-1 ring-white/10 sm:w-80 md:w-96"
+								/>
+							</Tilt>
+						</motion.div>
+					</div>
+				</div>
+			</motion.div>
+		</section>
 	);
 };
 

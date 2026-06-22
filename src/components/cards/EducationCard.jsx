@@ -1,121 +1,78 @@
+/** @format */
+
 import React from "react";
 import { VerticalTimelineElement } from "react-vertical-timeline-component";
-import styled from "styled-components";
-
-const Top = styled.div`
-  width: 100%;
-  display: flex;
-  max-width: 100%;
-  gap: 12px;
-`;
-const Image = styled.img`
-  height: 50px;
-  border-radius: 10px;
-  margin-top: 4px;
-  @media only screen and (max-width: 768px) {
-    height: 40px;
-  }
-`;
-const Body = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-const School = styled.div`
-  font-size: 18px;
-  font-weight: 600px;
-  color: ${({ theme }) => theme.text_primary + 99};
-  @media only screen and (max-width: 768px) {
-    font-size: 14px;
-  }
-`;
-const Degree = styled.div`
-  font-size: 14px;
-  font-weight: 500px;
-  color: ${({ theme }) => theme.text_secondary + 99};
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-const Date = styled.div`
-  font-size: 12px;
-  font-weight: 400px;
-  color: ${({ theme }) => theme.text_secondary + 80};
-
-  @media only screen and (max-width: 768px) {
-    font-size: 10px;
-  }
-`;
-
-const Description = styled.div`
-  width: 100%;
-  font-size: 15px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary + 99};
-  margin-bottom: 10px;
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-
-const Grade = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_secondary + 99};
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
-  }
-`;
-const Span = styled.div`
-  display: -webkit-box;
-  max-width: 100%;
-`;
+import { School } from "@mui/icons-material";
+import {
+	timelineContentStyle,
+	timelineContentArrowStyle,
+	timelineIconStyle,
+} from "../ui/timelineStyles";
 
 const EducationCard = ({ education }) => {
-  return (
-    <VerticalTimelineElement
-      icon={
-        <img
-          width="100%"
-          height="100%"
-          alt={education?.school}
-          style={{ borderRadius: "50%", objectFit: "cover" }}
-          src={education?.img}
-        />
-      }
-      contentStyle={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "12px",
-        background: "#1d1836",
-        color: "#fff",
-        boxShadow: "rgba(23, 92, 230, 0.15) 0px 4px 24px",
-        backgroundColor: "rgba(17, 25, 40, 0.83)",
-        border: "1px solid rgba(255, 255, 255, 0.125)",
-        borderRadius: "6px",
-      }}
-      contentArrowStyle={{
-        borderRight: "7px solid  rgba(255, 255, 255, 0.3)",
-      }}
-      date={education?.date}
-    >
-      <Top>
-        <Image src={education?.img} />
-        <Body>
-          <School>{education?.school}</School>
-          <Degree>{education?.degree}</Degree>
-          <Date>{education?.date}</Date>
-        </Body>
-      </Top>
-      <Grade>
-        <b>Grade : </b>
-        {education?.grade}
-      </Grade>
-      <Description>
-        {education?.desc && <Span>{education.desc}</Span>}
-      </Description>
-    </VerticalTimelineElement>
-  );
+	return (
+		<VerticalTimelineElement
+			iconStyle={timelineIconStyle}
+			icon={
+				<img
+					alt={education?.school}
+					src={education?.img}
+					className="h-full w-full rounded-full object-cover"
+				/>
+			}
+			contentStyle={timelineContentStyle}
+			contentArrowStyle={timelineContentArrowStyle}
+			date={education?.date}>
+			<div className="flex flex-col gap-4">
+				{/* Header: logo + school + degree */}
+				<div className="flex items-start gap-4">
+					<img
+						src={education?.img}
+						alt=""
+						className="h-14 w-14 shrink-0 rounded-xl object-cover ring-1 ring-zinc-800"
+					/>
+					<div className="flex flex-1 flex-col">
+						<h3 className="text-base font-semibold leading-tight text-ink-primary md:text-lg">
+							{education?.school}
+						</h3>
+						<p className="mt-0.5 text-sm font-medium text-ink-secondary">
+							{education?.degree}
+						</p>
+						<span className="mt-1 text-xs text-ink-muted">
+							{education?.date}
+						</span>
+					</div>
+				</div>
+
+				{/* Grade pill */}
+				{education?.grade && (
+					<div className="flex w-fit items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs">
+						<School
+							sx={{ fontSize: 14 }}
+							className="text-accent"
+						/>
+						<span className="font-semibold text-accent">Grade</span>
+						<span className="text-ink-primary">{education.grade}</span>
+					</div>
+				)}
+
+				{/* Divider */}
+				{education?.desc && (
+					<div
+						aria-hidden
+						className="h-px w-full bg-gradient-to-r from-zinc-800/50 via-zinc-800 to-zinc-800/50"
+					/>
+				)}
+
+				{/* Description */}
+				{education?.desc && (
+					<p className="text-sm leading-relaxed text-ink-primary/90">
+						{education.desc}
+					</p>
+				)}
+			</div>
+		</VerticalTimelineElement>
+	);
 };
 
 export default EducationCard;

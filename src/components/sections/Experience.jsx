@@ -1,79 +1,67 @@
-import React from "react";
+/** @format */
+
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import styled from "styled-components";
 import { experiences } from "../../data/constants";
 import ExperienceCard from "../cards/ExperienceCard";
+import SectionHeader from "../ui/SectionHeader";
+import Button from "../ui/Button";
+import ScrollTimelineLine from "../ui/ScrollTimelineLine";
+import SectionTopShimmer from "../ui/SectionTopShimmer";
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-contnet: center;
-  margin-top: 50px;
-  position: rlative;
-  z-index: 1;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  max-width: 1100px;
-  gap: 12px;
-  @media (max-width: 960px) {
-    flex-direction: column;
-  }
-`;
-const Title = styled.div`
-  font-size: 52px;
-  text-align: center;
-  font-weight: 600;
-  margin-top: 20px;
-  color: ${({ theme }) => theme.text_primary};
-  @media (max-width: 768px) {
-    margin-top: 12px;
-    font-size: 32px;
-  }
-`;
-const Desc = styled.div`
-  font-size: 18px;
-  text-align: center;
-  font-weight: 600;
-  color: ${({ theme }) => theme.text_secondary};
-  @media (max-width: 768px) {
-    font-size: 16px;
-  }
-`;
+const PAGE_SIZE = 3;
 
 const Experience = () => {
-  return (
-    <Container id="Experience">
-      <Wrapper>
-        <Title>Experience</Title>
-        <Desc
-          style={{
-            marginBottom: "40px",
-          }}
-        >
-          My work experience as a software engineer and working on different
-          companies and projects.
-        </Desc>
+	const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+	const timelineRef = useRef(null);
+	const remaining = experiences.length - visibleCount;
+	const visible = experiences.slice(0, visibleCount);
 
-        <VerticalTimeline>
-          {experiences.map((experience, index) => (
-            <ExperienceCard
-              key={`experience-${index}`}
-              experience={experience}
-            />
-          ))}
-        </VerticalTimeline>
-      </Wrapper>
-    </Container>
-  );
+	return (
+		<section
+			id="Experience"
+			className="relative mx-auto w-full max-w-[1280px] px-6 py-16 sm:px-8 md:py-24">
+			<SectionTopShimmer />
+			<SectionHeader
+				eyebrow="Experience"
+				title="Where I've worked"
+				description="A timeline of internships, freelance work, and the teams I've shipped real software with."
+			/>
+
+			<div
+				ref={timelineRef}
+				className="relative">
+				<ScrollTimelineLine targetRef={timelineRef} />
+
+				<VerticalTimeline lineColor="rgb(39 39 42)">
+					<AnimatePresence initial={false}>
+						{visible.map((experience, index) => (
+							<ExperienceCard
+								key={`experience-${experience.id ?? index}`}
+								experience={experience}
+							/>
+						))}
+					</AnimatePresence>
+				</VerticalTimeline>
+			</div>
+
+			{visibleCount < experiences.length && (
+				<motion.div
+					initial={{ opacity: 0, y: 8 }}
+					animate={{ opacity: 1, y: 0 }}
+					className="mt-10 flex justify-center">
+					<Button
+						variant="secondary"
+						withArrow
+						onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}>
+						Load more <span className="text-ink-muted">+{remaining}</span>
+					</Button>
+				</motion.div>
+			)}
+		</section>
+	);
 };
 
 export default Experience;

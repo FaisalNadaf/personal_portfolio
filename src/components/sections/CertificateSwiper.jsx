@@ -1,121 +1,83 @@
 /** @format */
 
 import React from "react";
-import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+import {
+	EffectCoverflow,
+	Pagination,
+	Navigation,
+	Autoplay,
+} from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import { EffectCoverflow, Pagination, Navigation } from "swiper";
+
 import { certificateSwiperImages } from "../../data/constants";
-import StartCanvas from "../canvas/Stars";
-
-// Styled Components
-const SwiperContainer = styled.div`
-	width: 100%;
-	padding: 2rem 0;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: relative;
-	background-color: ${({ theme }) => theme.bg};
-`;
-
-const SwiperWrapper = styled.div`
-	max-width: 100vw;
-	padding: 2rem;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-`;
-
-const Heading = styled.h1`
-	font-size: 3rem;
-	color: ${({ theme }) => theme.text_primary};
-	text-align: center;
-	margin-bottom: 2rem;
-`;
-
-const StyledSwiper = styled(Swiper)`
-	width: 100%;
-	height: 50vh;
-	position: relative;
-
-	.swiper-slide {
-		width: 500px;
-		height: 300px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		border-radius: 20px;
-		overflow: hidden;
-		background: ${({ theme }) => theme.bg_secondary};
-	}
-
-	.swiper-slide img {
-		width: 100%;
-		height: 100%;
-		object-fit: fill;
-		border-radius: 20px;
-	}
-
-	.swiper-pagination-bullet {
-		background: ${({ theme }) => theme.soft2};
-		&.swiper-pagination-bullet-active {
-			background: ${({ theme }) => theme.primary};
-		}
-	}
-
-	.swiper-button-prev,
-	.swiper-button-next {
-		color: ${({ theme }) => theme.primary};
-		&:hover {
-			color: ${({ theme }) => theme.text_primary};
-		}
-	}
-`;
-
-const SwiperControl = styled.div`
-	margin-top: 1rem;
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-`;
+import StarCanvas from "../canvas/Stars";
+import SectionHeader from "../ui/SectionHeader";
 
 const CertificateSwiper = () => {
 	return (
-		<SwiperContainer>
-			<StartCanvas />
-			<SwiperWrapper>
-				<Heading>Certificates</Heading>
-				<StyledSwiper
-					effect={"coverflow"}
-					grabCursor={true}
-					centeredSlides={true}
-					loop={true}
-					slidesPerView={"auto"}
+		<section
+			id="Certifications"
+			className="relative w-full overflow-hidden bg-bg py-16 md:py-24">
+			<StarCanvas />
+
+			{/* Header stays inside the page container */}
+			<div className="section-container relative z-[2]">
+				<SectionHeader
+					eyebrow="Certifications"
+					title="Certificates"
+					description="Swipe to explore. Tap dots to jump quickly."
+				/>
+			</div>
+
+			{/* Swiper breaks out to full viewport width */}
+			<div className="relative z-[2] w-full">
+				<Swiper
+					className="cert-swiper"
+					effect="coverflow"
+					grabCursor
+					centeredSlides
+					loop
+					slidesPerView="auto"
+					speed={900}
+					observer
+					observeParents
+					autoplay={{
+						delay: 2800,
+						disableOnInteraction: false,
+						pauseOnMouseEnter: true,
+					}}
 					coverflowEffect={{
 						rotate: 0,
 						stretch: 0,
-						depth: 100,
-						modifier: 2.5,
+						depth: 220,
+						modifier: 2,
+						slideShadows: false,
 					}}
-					pagination={{ clickable: true }}
-					navigation={true}
-					modules={[EffectCoverflow, Pagination, Navigation]}>
+					pagination={{ clickable: true, dynamicBullets: false }}
+					navigation
+					modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}>
 					{certificateSwiperImages.map((img, idx) => (
 						<SwiperSlide key={idx}>
-							<img
-								src={img}
-								alt={`Certificate ${idx + 1}`}
-							/>
+							<div className="relative h-full w-full overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-900/60 shadow-lg shadow-black/40 backdrop-blur-md">
+								<div className="absolute inset-3 overflow-hidden rounded-xl bg-zinc-950/40 ring-1 ring-zinc-800">
+									<img
+										src={img}
+										alt={`Certificate ${idx + 1}`}
+										loading="lazy"
+										className="h-full w-full object-contain"
+									/>
+								</div>
+							</div>
 						</SwiperSlide>
 					))}
-				</StyledSwiper>
-				<SwiperControl />
-			</SwiperWrapper>
-		</SwiperContainer>
+				</Swiper>
+			</div>
+		</section>
 	);
 };
 

@@ -1,113 +1,127 @@
 /** @format */
 
-import React, { useRef } from "react";
-import { gsap, Power4 } from "gsap";
-import styled from "styled-components";
+import React, { useRef, useState } from "react";
+import { gsap, Power3 } from "gsap";
 
-const MagnetoButtonWrapper = styled.button`
-  min-height: 10rem;
-  min-width: 10rem;
-  border-radius: 50%;
-  border: none;
-  background-color: rgb(149, 93, 253);
-  cursor: pointer;
-  color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: rgb(129, 73, 233);
-  }
-`;
-
-const MagnetoText = styled.span`
-textdecoration: none;
-  position: relative;
-  font-size: 1rem;
-  font-weight: bold;
-  color: white;
-  transition: transform 0.3s ease;
-`;
-
-const Debugger = styled.div`
-  display: none;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  background-color: #f3f4f6; /* Tailwind's gray-100 */
-  color: black;
-  padding: 2rem;
-  width: 20rem;
-  border: 1px solid #e5e7eb; /* Tailwind's gray-200 */
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
-
-const MagnetoButton = ({ text }) => {
+const MagnetoButton = ({ text, type = "button", disabled = false }) => {
 	const buttonRef = useRef(null);
-	const textRef = useRef(null);
+	const innerRef = useRef(null);
+	const haloRef = useRef(null);
+	const [hovered, setHovered] = useState(false);
 
 	const activateMagneto = (event) => {
 		const button = buttonRef.current;
-		const text = textRef.current;
+		const inner = innerRef.current;
+		const halo = haloRef.current;
+		if (!button || !inner) return;
 
-		if (!button || !text) return;
+		const rect = button.getBoundingClientRect();
+		const buttonStrength = 50;
+		const innerStrength = 100;
+		const haloStrength = 30;
 
-		const boundBox = button.getBoundingClientRect();
-		const magnetoStrength = 40;
-		const magnetoTextStrength = 80;
-		const newX = (event.clientX - boundBox.left) / button.offsetWidth - 0.5;
-		const newY = (event.clientY - boundBox.top) / button.offsetHeight - 0.5;
+		const x = (event.clientX - rect.left) / button.offsetWidth - 0.5;
+		const y = (event.clientY - rect.top) / button.offsetHeight - 0.5;
 
 		gsap.to(button, {
-			duration: 1,
-			x: newX * magnetoStrength,
-			y: newY * magnetoStrength,
-			ease: Power4.easeOut,
+			duration: 0.7,
+			x: x * buttonStrength,
+			y: y * buttonStrength,
+			ease: Power3.easeOut,
 		});
-
-		gsap.to(text, {
-			duration: 1,
-			x: newX * magnetoTextStrength,
-			y: newY * magnetoTextStrength,
-			ease: Power4.easeOut,
+		gsap.to(inner, {
+			duration: 0.7,
+			x: x * innerStrength,
+			y: y * innerStrength,
+			ease: Power3.easeOut,
 		});
+		if (halo) {
+			gsap.to(halo, {
+				duration: 0.9,
+				x: x * haloStrength,
+				y: y * haloStrength,
+				ease: Power3.easeOut,
+			});
+		}
 	};
 
 	const resetMagneto = () => {
 		const button = buttonRef.current;
-		const text = textRef.current;
+		const inner = innerRef.current;
+		const halo = haloRef.current;
+		if (!button || !inner) return;
 
-		if (!button || !text) return;
+		setHovered(false);
 
 		gsap.to(button, {
-			duration: 1,
+			duration: 0.9,
 			x: 0,
 			y: 0,
-			ease: Power4.easeOut,
+			ease: "elastic.out(1, 0.4)",
 		});
-
-		gsap.to(text, {
-			duration: 1,
+		gsap.to(inner, {
+			duration: 0.9,
 			x: 0,
 			y: 0,
-			ease: Power4.easeOut,
+			ease: "elastic.out(1, 0.4)",
 		});
+		if (halo) {
+			gsap.to(halo, {
+				duration: 0.9,
+				x: 0,
+				y: 0,
+				ease: "elastic.out(1, 0.4)",
+			});
+		}
 	};
 
 	return (
-		<div className="relative">
-			<MagnetoButtonWrapper
+		<div className="relative inline-flex items-center justify-center">
+			{/* Soft glowing halo (follows magneto with reduced strength) */}
+			<span
+				ref={haloRef}
+				aria-hidden
+				className={`pointer-events-none absolute inset-0 rounded-full bg-accent/40 blur-2xl transition-opacity duration-500 ${
+					hovered ? "opacity-90" : "opacity-50"
+				}`}
+			/>
+
+			<button
 				ref={buttonRef}
+				type={type}
+				disabled={disabled}
+				onMouseEnter={() => setHovered(true)}
 				onMouseMove={activateMagneto}
-				onMouseLeave={resetMagneto}>
-				<MagnetoText ref={textRef}>{text}</MagnetoText>
-			</MagnetoButtonWrapper>
-			<Debugger id="debugger"></Debugger>
+				onMouseLeave={resetMagneto}
+				className="group/mag relative flex h-40 w-40 items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-accent via-blue-500 to-indigo-500 text-white shadow-glow-lg ring-1 ring-white/15 transition-transform duration-300 ease-out hover:scale-105 disabled:cursor-not-allowed disabled:opacity-60">
+				{/* Rotating conic ring behind */}
+				<span
+					aria-hidden
+					className="pointer-events-none absolute -inset-px rounded-full opacity-0 transition-opacity duration-500 group-hover/mag:opacity-100"
+					style={{
+						background:
+							"conic-gradient(from 0deg, rgba(255,255,255,0.0), rgba(255,255,255,0.6), rgba(255,255,255,0.0))",
+						animation: "spin 4s linear infinite",
+						mask: "radial-gradient(circle, transparent 64%, #000 66%)",
+						WebkitMask: "radial-gradient(circle, transparent 64%, #000 66%)",
+					}}
+				/>
+
+				{/* Shine sweep on hover */}
+				<span
+					aria-hidden
+					className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent transition-transform duration-1000 ease-out group-hover/mag:translate-x-full"
+				/>
+
+				<span
+					ref={innerRef}
+					className="relative z-[1] flex items-center gap-2 text-base font-semibold tracking-wide">
+					<span>{text}</span>
+					<span className="inline-block transition-transform duration-300 group-hover/mag:translate-x-1">
+						→
+					</span>
+				</span>
+			</button>
 		</div>
 	);
 };

@@ -4,20 +4,12 @@ import React, { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial, Preload } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
-import styled from "styled-components";
-
-const StyledCanvasWrapper = styled.div`
-	width: 100%;
-	height: auto;
-	position: absolute;
-	inset: 0;
-`;
 
 const Stars = React.memo((props) => {
 	const ref = useRef();
 	const sphere = useMemo(
-		() => random.inSphere(new Float32Array(1000), { radius: 1}),
-		[]
+		() => random.inSphere(new Float32Array(1000), { radius: 1 }),
+		[],
 	);
 
 	useFrame((state, delta) => {
@@ -47,14 +39,14 @@ const Stars = React.memo((props) => {
 
 const StyledStarsCanvas = () => {
 	return (
-		<StyledCanvasWrapper>
+		<div className="absolute inset-0 h-auto w-full">
 			<Canvas camera={{ position: [0, 0, 1] }}>
 				<Suspense fallback={null}>
 					<Stars />
 				</Suspense>
 				<Preload all />
 			</Canvas>
-		</StyledCanvasWrapper>
+		</div>
 	);
 };
 

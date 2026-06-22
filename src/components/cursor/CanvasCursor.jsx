@@ -3,15 +3,18 @@
 import { useTrail, animated } from "@react-spring/web";
 import { useRef, useEffect, useCallback } from "react";
 import "./useCanvasCursor.css";
+
 const fast = { tension: 1200, friction: 40 };
 const slow = { mass: 10, tension: 200, friction: 50 };
 const trans = (x, y) => `translate3d(${x}px,${y}px,0) translate3d(-50%,-50%,0)`;
-const CanvasCursor = ({ blobType = "circle", fillColor = "#fegefe" }) => {
+
+const CanvasCursor = ({ blobType = "circle", fillColor = "#3b82f6" }) => {
 	const [trail, api] = useTrail(3, (i) => ({
 		xy: [0, 0],
 		config: i === 0 ? fast : slow,
 	}));
 	const ref = useRef(null);
+
 	const updatePosition = useCallback(() => {
 		if (ref.current) {
 			const rect = ref.current.getBoundingClientRect();
@@ -19,23 +22,29 @@ const CanvasCursor = ({ blobType = "circle", fillColor = "#fegefe" }) => {
 		}
 		return { left: 0, top: 0 };
 	}, []);
-	const handleMove = (e) => {
-		const { left, top } = updatePosition();
-		const x = e.clientX || (e.touches && e.touches[0].clientX);
-		const y = e.clientY || (e.touches && e.touches[0].clientY);
-		api.start({ xy: [x - left, y - top] });
-	};
+
 	useEffect(() => {
-		const handleResize = () => {
-			updatePosition();
+		const handleMove = (e) => {
+			const { left, top } = updatePosition();
+			const x = e.clientX || (e.touches && e.touches[0].clientX);
+			const y = e.clientY || (e.touches && e.touches[0].clientY);
+			if (x == null || y == null) return;
+			api.start({ xy: [x - left, y - top] });
 		};
+		const handleResize = () => updatePosition();
+
+		window.addEventListener("mousemove", handleMove, { passive: true });
+		window.addEventListener("touchmove", handleMove, { passive: true });
 		window.addEventListener("resize", handleResize);
 		return () => {
+			window.removeEventListener("mousemove", handleMove);
+			window.removeEventListener("touchmove", handleMove);
 			window.removeEventListener("resize", handleResize);
 		};
-	}, [updatePosition]);
+	}, [api, updatePosition]);
+
 	return (
-		<div className="container ">
+		<div className="container">
 			<svg style={{ position: "absolute", width: 0, height: 0 }}>
 				<filter id="blob">
 					<feGaussianBlur
@@ -51,9 +60,7 @@ const CanvasCursor = ({ blobType = "circle", fillColor = "#fegefe" }) => {
 			</svg>
 			<div
 				ref={ref}
-				className="main"
-				onMouseMove={handleMove}
-				onTouchMove={handleMove}>
+				className="main">
 				{trail.map((props, index) => (
 					<animated.div
 						key={index}
@@ -68,4 +75,5 @@ const CanvasCursor = ({ blobType = "circle", fillColor = "#fegefe" }) => {
 		</div>
 	);
 };
+
 export default CanvasCursor;

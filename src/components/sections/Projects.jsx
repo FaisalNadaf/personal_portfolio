@@ -1,186 +1,149 @@
 /** @format */
 
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "../../data/constants";
 import ProjectCard from "../cards/ProjectCard";
 import CanvasCursor from "../cursor/CanvasCursor";
-<<<<<<< HEAD
-=======
+import SectionHeader from "../ui/SectionHeader";
+import Button from "../ui/Button";
 
->>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
+const FILTERS = [
+	{ key: "all", label: "All" },
+	{ key: "web app", label: "Web Apps" },
+	{ key: "android app", label: "Android Apps" },
+	{ key: "machine learning", label: "AI / ML" },
+	{ key: "hackathon", label: "Hackathon" },
+];
 
-const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-contnet: center;
-	margin-top: 50px;
-	padding: 0px 16px;
-	position: rlative;
-	z-index: 1;
-	align-items: center;
-`;
+const PAGE_SIZE = 6;
 
-const Wrapper = styled.div`
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	flex-direction: column;
-	width: 100%;
-	max-width: 1100px;
-	gap: 12px;
-	@media (max-width: 960px) {
-		flex-direction: column;
-	}
-`;
-const Title = styled.div`
-	font-size: 52px;
-	text-align: center;
-	font-weight: 600;
-	margin-top: 20px;
-	color: ${({ theme }) => theme.text_primary};
-	@media (max-width: 768px) {
-		margin-top: 12px;
-		font-size: 32px;
-	}
-`;
-const Desc = styled.div`
-	font-size: 18px;
-	text-align: center;
-	font-weight: 600;
-	color: ${({ theme }) => theme.text_secondary};
-	@media (max-width: 768px) {
-		font-size: 16px;
-	}
-`;
+const SMOOTH = [0.22, 0.61, 0.36, 1];
 
-const ToggleButtonGroup = styled.div`
-  display: flex;
-  border: 1.5px solid ${({ theme }) => theme.primary};
-  color: ${({ theme }) => theme.primary};
-  font-size: 16px;
-  border-radius: 12px;
-font-weight 500;
-margin: 22px 0;
-@media (max-width: 768px){
-    font-size: 12px;
-}
-`;
-const ToggleButton = styled.div`
-	padding: 8px 18px;
-	border-radius: 6px;
-	cursor: pointer;
-	&:hover {
-		background: ${({ theme }) => theme.primary + 20};
-	}
-	@media (max-width: 768px) {
-		padding: 6px 8px;
-		border-radius: 4px;
-	}
-	${({ active, theme }) =>
-		active &&
-		`
-  background:  ${theme.primary + 20};
-  `}
-`;
-const Divider = styled.div`
-	width: 1.5px;
-	background: ${({ theme }) => theme.primary};
-`;
+const gridVariants = {
+	hidden: {},
+	show: {
+		transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+	},
+};
 
-const CardContainer = styled.div`
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 28px;
-	flex-wrap: wrap;
-`;
+const cardVariants = {
+	hidden: { opacity: 0, y: 20, scale: 0.97 },
+	show: {
+		opacity: 1,
+		y: 0,
+		scale: 1,
+		transition: { duration: 0.55, ease: SMOOTH },
+	},
+	exit: {
+		opacity: 0,
+		y: -12,
+		scale: 0.97,
+		transition: { duration: 0.25, ease: SMOOTH },
+	},
+};
 
 const Projects = () => {
-<<<<<<< HEAD
-	const [toggle, setToggle] = useState("all");
+	const [filter, setFilter] = useState("all");
+	const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+	const filtered = useMemo(
+		() =>
+			filter === "all"
+				? projects
+				: projects.filter((p) => p.category === filter),
+		[filter],
+	);
+
+	const handleFilter = (key) => {
+		setFilter(key);
+		setVisibleCount(PAGE_SIZE);
+	};
+
 	return (
-		<Container id="Projects">
-			<CanvasCursor />
-			<Wrapper>
-				<Title>Projects</Title>
-				<Desc
-					style={{
-						marginBottom: "40px",
-					}}>
-					I have worked on a wide range of projects. From web apps to android
-					apps. Here are some of my projects.
-				</Desc>
-=======
-  const [toggle, setToggle] = useState("all");
-  return (
-    <Container id="Projects">
-      <CanvasCursor />
-      <Wrapper>
-        <Title>Projects</Title>
-        <Desc
-          style={{
-            marginBottom: "40px",
-          }}
-        >
-          I have worked on a wide range of projects. From web apps to android
-          apps. Here are some of my projects.
-        </Desc>
->>>>>>> a2af69346cc064ae26e4bb633331750b4c7af209
+		<section
+			id="Projects"
+			className="relative isolate section-container py-16 md:py-24">
+			{/* Blob cursor — sits BEHIND content as a decorative layer.
+			    listens on window for mousemove so it works regardless of layering. */}
+			<div
+				aria-hidden
+				className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+				<CanvasCursor />
+			</div>
 
-				<ToggleButtonGroup>
-					<ToggleButton
-						active={toggle === "all"}
-						onClick={() => setToggle("all")}>
-						ALL
-					</ToggleButton>
-					<Divider />
-					<ToggleButton
-						active={toggle === "web app"}
-						onClick={() => setToggle("web app")}>
-						WEB APP"S
-					</ToggleButton>
-					<Divider />
-					<ToggleButton
-						active={toggle === "android app"}
-						onClick={() => setToggle("android app")}>
-						ANDROID APP'S
-					</ToggleButton>
-					<Divider />
-					<ToggleButton
-						active={toggle === "machine learning"}
-						onClick={() => setToggle("machine learning")}>
-						MACHINE LEARNING
-					</ToggleButton>
-					<Divider />
+			<div className="relative z-10">
+				<SectionHeader
+					eyebrow="Projects"
+					title="Things I've built"
+					description="A selection of products, hackathon builds, and freelance work spanning web, mobile, and AI."
+				/>
 
-					<ToggleButton
-						active={toggle === "hackathon"}
-						onClick={() => setToggle("hackathon")}>
-						HACKATHON
-					</ToggleButton>
-				</ToggleButtonGroup>
+				{/* Filter pills */}
+				<div className="mb-12 flex flex-wrap justify-center gap-2">
+					{FILTERS.map((f) => {
+						const active = filter === f.key;
+						return (
+							<motion.button
+								key={f.key}
+								onClick={() => handleFilter(f.key)}
+								whileTap={{ scale: 0.96 }}
+								transition={{
+									type: "spring",
+									stiffness: 400,
+									damping: 22,
+								}}
+								className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
+									active
+										? "bg-accent text-white shadow-glow"
+										: "border border-zinc-800 bg-zinc-900/50 text-ink-secondary hover:border-zinc-700 hover:text-ink-primary"
+								}`}>
+								{f.label}
+							</motion.button>
+						);
+					})}
+				</div>
 
-				<CardContainer>
-					{toggle === "all" &&
-						projects.map((project, i) => (
-							<ProjectCard
-								key={i}
-								project={project}
-							/>
+				{/* Cards grid */}
+				<motion.div
+					variants={gridVariants}
+					initial="hidden"
+					whileInView="show"
+					viewport={{ once: true, margin: "-60px" }}
+					key={filter}
+					className="grid auto-rows-fr gap-6 md:grid-cols-2 lg:grid-cols-3">
+					<AnimatePresence mode="popLayout">
+						{filtered.slice(0, visibleCount).map((project, i) => (
+							<motion.div
+								key={`${filter}-${i}`}
+								variants={cardVariants}
+								initial="hidden"
+								animate="show"
+								exit="exit"
+								layout
+								className="h-full">
+								<ProjectCard project={project} />
+							</motion.div>
 						))}
-					{projects
-						.filter((item) => item.category === toggle)
-						.map((project, i) => (
-							<ProjectCard
-								key={i}
-								project={project}
-							/>
-						))}
-				</CardContainer>
-			</Wrapper>
-		</Container>
+					</AnimatePresence>
+				</motion.div>
+
+				{visibleCount < filtered.length && (
+					<motion.div
+						initial={{ opacity: 0, y: 8 }}
+						animate={{ opacity: 1, y: 0 }}
+						className="mt-12 flex justify-center">
+						<Button
+							variant="secondary"
+							size="md"
+							withArrow
+							onClick={() => setVisibleCount((v) => v + PAGE_SIZE)}>
+							Load more
+						</Button>
+					</motion.div>
+				)}
+			</div>
+		</section>
 	);
 };
 
