@@ -49,9 +49,9 @@ const Projects = () => {
 
 	const filtered = useMemo(
 		() =>
-			filter === "all"
-				? projects
-				: projects.filter((p) => p.category === filter),
+			filter === "all" ? projects : (
+				projects.filter((p) => p.category === filter)
+			),
 		[filter],
 	);
 
@@ -94,9 +94,9 @@ const Projects = () => {
 									damping: 22,
 								}}
 								className={`rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-200 ${
-									active
-										? "bg-accent text-white shadow-glow"
-										: "border border-zinc-800 bg-zinc-900/50 text-ink-secondary hover:border-zinc-700 hover:text-ink-primary"
+									active ?
+										"bg-accent text-white shadow-glow"
+									:	"border border-zinc-800 bg-zinc-900/50 text-ink-secondary hover:border-zinc-700 hover:text-ink-primary"
 								}`}>
 								{f.label}
 							</motion.button>
