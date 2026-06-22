@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { LinkedIn, GitHub, Twitter, Email, Phone } from "@mui/icons-material";
 import SectionHeader from "../ui/SectionHeader";
 import MagnetoButton from "../MagnetoButton";
-import { Bio } from "../../data/constants";
+import { Bio } from "../../data/constants.js";
 
 const SMOOTH = [0.22, 0.61, 0.36, 1];
 

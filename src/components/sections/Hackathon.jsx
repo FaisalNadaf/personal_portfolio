@@ -4,7 +4,7 @@ import React, { useState, useMemo, useRef } from "react";
 import { motion } from "framer-motion";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { hackathons } from "../../data/constants";
+import { hackathons } from "../../data/constants.js";
 import HacakathonCard from "../cards/HacakathonCard";
 import SectionHeader from "../ui/SectionHeader";
 import Button from "../ui/Button";

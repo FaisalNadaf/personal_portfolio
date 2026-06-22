@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Tilt } from "react-tilt";
-import { skills } from "../../data/constants";
+import { skills } from "../../data/constants.js";
 import Card from "../ui/Card";
 import SectionHeader from "../ui/SectionHeader";
 

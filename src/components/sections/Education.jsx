@@ -3,7 +3,7 @@
 import React, { useRef } from "react";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { education } from "../../data/constants";
+import { education } from "../../data/constants.js";
 import EducationCard from "../cards/EducationCard";
 import EarthCanvas from "../canvas/Earth";
 import SectionHeader from "../ui/SectionHeader";

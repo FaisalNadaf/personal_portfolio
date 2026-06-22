@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import DomeGallery from "./DomeGallery";
 import SectionHeader from "../ui/SectionHeader";
 import SectionTopShimmer from "../ui/SectionTopShimmer";
-import { achievements } from "../../data/constants";
+import { achievements } from "../../data/constants.js";
 
 const Achievements = () => {
 	return (

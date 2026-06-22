@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects } from "../../data/constants";
+import { projects } from "../../data/constants.js";
 import ProjectCard from "../cards/ProjectCard";
 import CanvasCursor from "../cursor/CanvasCursor";
 import SectionHeader from "../ui/SectionHeader";

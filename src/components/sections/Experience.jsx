@@ -4,7 +4,7 @@ import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { VerticalTimeline } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
-import { experiences } from "../../data/constants";
+import { experiences } from "../../data/constants.js";
 import ExperienceCard from "../cards/ExperienceCard";
 import SectionHeader from "../ui/SectionHeader";
 import Button from "../ui/Button";

@@ -5,7 +5,7 @@ import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 import { Tilt } from "react-tilt";
 
-import { Bio } from "../../data/constants";
+import { Bio } from "../../data/constants.js";
 import HeroImg from "../../images/HeroImage.jpg";
 import HeroBgAnimation from "../HeroBgAnimation";
 import StarCanvas from "../canvas/Stars";

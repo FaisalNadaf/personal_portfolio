@@ -14,7 +14,7 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { certificateSwiperImages } from "../../data/constants";
+import { certificateSwiperImages } from "../../data/constants.js";
 import StarCanvas from "../canvas/Stars";
 import SectionHeader from "../ui/SectionHeader";
 

@@ -7,7 +7,7 @@ import {
 	LinkedIn,
 	Twitter,
 } from "@mui/icons-material";
-import { Bio } from "../../data/constants";
+import { Bio } from "../../data/constants.js";
 
 const NAV_LINKS = [
 	{ href: "#About", label: "About" },
