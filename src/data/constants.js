@@ -13,7 +13,7 @@ export const Bio = {
 		"Full-stack developer who ships real products end-to-end. I build clean, scalable systems that solve real problems — from hackathon wins to freelance launches. Driven by curiosity, sharpened by discipline.",
 	github: "https://github.com/FaisalNadaf",
 	resume:
-		"https://drive.google.com/file/d/1o4_PSTQb1AgNe3rS9uqW6e8RL361mdVZ/view?usp=sharing",
+		"https://drive.google.com/file/d/1bNZNoXvqvC-HMSsRwCGJox_8hbEZkO-1/view?usp=sharing",
 	linkedin: "https://www.linkedin.com/in/faisal-nadaf-429160281/",
 	twitter: "https://x.com/faisal_nadaf",
 	insta: "https://www.instagram.com/faisal.fn_",
@@ -21,6 +21,28 @@ export const Bio = {
 };
 
 export const experiences = [
+	{
+		id: 7,
+		img: "/images/logos/cubiccode.png", // replace with the Cubiccode logo
+		role: "Full-Stack Developer",
+		company: "Cubiccode",
+		date: "Feb 2026 - Present",
+		desc: "Build and maintain full-stack web applications with React.js, Next.js, Node.js, Express.js, and MongoDB, delivering responsive and scalable solutions. Automate build, test, and release cycles through Git/GitHub workflows and CI/CD pipelines, accelerating deployments and reducing manual errors. Collaborate within an agile team to plan, develop, and ship features across iterative sprints.",
+		skills: [
+			"Full-Stack Development",
+			"React.js",
+			"Next.js",
+			"Node.js",
+			"Express.js",
+			"MongoDB",
+			"CI/CD Pipelines",
+			"Git/GitHub Workflows",
+			"Responsive Design",
+			"Agile Methodology",
+			"Team Collaboration",
+		],
+		doc: "https://link-to-offerletter-or-demo.com",
+	},
 	{
 		id: 0,
 		img: "/images/logos/positron.png",
@@ -40,7 +62,7 @@ export const experiences = [
 			"Production Deployment",
 			"Client Communication",
 		],
-		doc: "https://link-to-positron-live-website.com",
+		doc: "https://positron-he.com/",
 	},
 	{
 		id: 2,
@@ -58,7 +80,7 @@ export const experiences = [
 			"Agile Methodology",
 			"Team Collaboration",
 		],
-		doc: "https://link-to-offerletter-or-demo.com",
+		doc: "https://drive.google.com/file/d/1FHBmSkCFFGw6qTErAEw2f4XGvF21NF2U/view?usp=drive_link",
 	},
 	{
 		id: 3,
@@ -80,7 +102,7 @@ export const experiences = [
 			"Client Communication",
 			"Deployment & Hosting",
 		],
-		doc: "https://link-to-live-website-or-demo.com",
+		doc: "https://vignyanpucollege.com/",
 	},
 
 	{
