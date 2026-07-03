@@ -56,7 +56,7 @@ const ExperienceCard = ({ experience }) => {
 				<img
 					alt={experience?.company}
 					src={experience?.img}
-					className="h-full w-full rounded-full object-cover"
+					className="h-full w-full rounded-full bg-white object-contain p-1"
 				/>
 			}
 			contentStyle={timelineContentStyle}
@@ -78,7 +78,7 @@ const ExperienceCard = ({ experience }) => {
 							alt=""
 							whileHover={{ scale: 1.06, rotate: -2 }}
 							transition={{ type: "spring", stiffness: 300, damping: 18 }}
-							className="h-14 w-14 rounded-xl object-cover ring-1 ring-zinc-800"
+							className="h-20 w-20 rounded-xl bg-white object-contain p-1.5 ring-1 ring-zinc-800"
 						/>
 						{current && (
 							<span className="absolute -right-1 -top-1 flex h-3 w-3">
@@ -161,7 +161,7 @@ const ExperienceCard = ({ experience }) => {
 						rel="noreferrer"
 						className="group/doc inline-flex w-fit items-center gap-1.5 self-start rounded-full border border-accent/30 bg-accent/5 px-3 py-1.5 text-xs font-medium text-accent transition-all duration-200 hover:border-accent/60 hover:bg-accent/15 hover:shadow-glow-sm">
 						<Launch sx={{ fontSize: 14 }} />
-						<span>View document</span>
+						<span>View Work</span>
 						<span className="inline-block transition-transform duration-200 group-hover/doc:translate-x-0.5">
 							→
 						</span>

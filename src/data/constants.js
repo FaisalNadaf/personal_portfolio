@@ -23,7 +23,7 @@ export const Bio = {
 export const experiences = [
 	{
 		id: 7,
-		img: "/images/logos/cubiccode.png", // replace with the Cubiccode logo
+		img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfXcXrT5uWqkAJTIC5z6QiOjFn8OUb5zYY4cVywHNfHA&s", // replace with the Cubiccode logo
 		role: "Full-Stack Developer",
 		company: "Cubiccode",
 		date: "Feb 2026 - Present",
@@ -41,7 +41,7 @@ export const experiences = [
 			"Agile Methodology",
 			"Team Collaboration",
 		],
-		doc: "https://link-to-offerletter-or-demo.com",
+		doc: "https://cubiccode.in/",
 	},
 	{
 		id: 0,
