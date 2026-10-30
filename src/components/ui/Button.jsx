@@ -1,54 +1,57 @@
 /** @format */
 
-import React from "react";
+import { Link } from "react-router-dom";
+import { cn } from "../../utils/utils";
+
+// Labels may wrap on very narrow screens (min-height, not a fixed height).
+const base =
+	"inline-flex select-none items-center justify-center gap-2 rounded-full text-center font-medium leading-snug transition-[background-color,color,box-shadow,transform] duration-fast ease-standard active:scale-[0.98] motion-reduce:transform-none disabled:cursor-not-allowed disabled:opacity-60 [&>svg]:shrink-0";
 
 const variants = {
 	primary:
-		"bg-accent text-white hover:bg-accent-hover hover:shadow-glow focus-visible:ring-accent",
-	secondary:
-		"border border-zinc-700 bg-zinc-900/40 text-ink-primary backdrop-blur-sm hover:border-accent hover:text-accent hover:bg-accent/5 focus-visible:ring-zinc-500",
-	ghost:
-		"bg-transparent text-ink-secondary hover:bg-white/5 hover:text-ink-primary focus-visible:ring-zinc-500",
+		"bg-brand-600 text-white shadow-[0_1px_2px_rgba(16,24,40,0.1),inset_0_1px_0_rgba(255,255,255,0.14)] hover:bg-brand-700",
+	secondary: "bg-white text-ink ring-1 ring-inset ring-line-strong hover:bg-sand-50 hover:ring-ink/25",
+	soft: "bg-brand-50 text-brand-700 hover:bg-brand-100",
+	ghost: "text-ink-soft hover:bg-sand-100 hover:text-ink",
+	dark: "bg-ink text-white hover:bg-ink-soft",
 };
 
 const sizes = {
-	sm: "px-4 py-1.5 text-sm",
-	md: "px-5 py-2 text-sm",
-	lg: "px-6 py-3 text-base",
+	sm: "min-h-9 px-4 py-1.5 text-sm",
+	md: "min-h-11 px-5 py-2.5 text-[0.9375rem]",
+	lg: "min-h-12 px-6 py-3 text-base",
 };
 
-const Button = ({
-	as: Tag = "button",
-	variant = "primary",
-	size = "md",
-	withArrow = false,
-	className = "",
-	children,
-	...rest
-}) => {
-	const base =
-		"group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full font-medium transition-all duration-200 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-bg disabled:cursor-not-allowed disabled:opacity-60";
+const buttonClasses = ({ variant = "primary", size = "md", className } = {}) =>
+	cn(base, variants[variant], sizes[size], className);
 
+/**
+ * Renders a router Link (`to`), an anchor (`href`) or a button.
+ * External anchors open in a new tab with safe rel attributes.
+ */
+export default function Button({ to, href, external = false, variant, size, className, children, ...rest }) {
+	const classes = buttonClasses({ variant, size, className });
+	if (to) {
+		return (
+			<Link to={to} className={classes} {...rest}>
+				{children}
+			</Link>
+		);
+	}
+	if (href) {
+		return (
+			<a
+				href={href}
+				className={classes}
+				{...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+				{...rest}>
+				{children}
+			</a>
+		);
+	}
 	return (
-		<Tag
-			className={`${base} ${variants[variant]} ${sizes[size]} ${className}`}
-			{...rest}>
-			{variant === "primary" && (
-				<span
-					aria-hidden
-					className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-out group-hover/btn:translate-x-full"
-				/>
-			)}
-			<span className="relative z-[1]">{children}</span>
-			{withArrow && (
-				<span
-					aria-hidden
-					className="relative z-[1] inline-block transition-transform duration-200 ease-out group-hover/btn:translate-x-0.5">
-					→
-				</span>
-			)}
-		</Tag>
+		<button type="button" className={classes} {...rest}>
+			{children}
+		</button>
 	);
-};
-
-export default Button;
+}

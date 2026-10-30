@@ -22,3 +22,15 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Raw screenshot captures (optimised copies live in public/images)
+.screenshots
+
+# Added by GitHub migration (2026-10-30)
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+!.env.*.example
+.semgrep/

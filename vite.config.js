@@ -3,53 +3,24 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+export default defineConfig(({ isSsrBuild }) => ({
 	plugins: [react()],
-	include: ["swiper"],
 	build: {
-		rollupOptions: {
-			output: {
-				manualChunks: {
-					// Separate vendor chunks
-					vendor: ["react", "react-dom", "react-router-dom"],
-					three: ["@react-three/fiber", "@react-three/drei", "ogl"],
-					ui: [
-						"@mui/material",
-						"@mui/icons-material",
-						"@emotion/react",
-						"@emotion/styled",
-						"@react-spring/web",
-						"@use-gesture/react",
-					],
-					utils: [
-						"gsap",
-						"mathjs",
-						"uuid",
-						"clsx",
-						"tailwind-merge",
-						"react-toastify",
-					],
-					swiper: ["swiper"],
+		// The SSR bundle is only used at build time by scripts/prerender.mjs.
+		rollupOptions: isSsrBuild
+			? {}
+			: {
+					output: {
+						manualChunks: {
+							vendor: ["react", "react-dom", "react-router-dom", "@remix-run/router"],
+						},
+					},
 				},
-			},
-		},
-		// Increase chunk size warning limit
-		chunkSizeWarningLimit: 1000,
-		// Enable minification
-		minify: "terser",
+		minify: isSsrBuild ? false : "terser",
 		terserOptions: {
-			compress: {
-				drop_console: true,
-				drop_debugger: true,
-			},
+			compress: { drop_console: true, drop_debugger: true },
 		},
-		// Optimize CSS
 		cssCodeSplit: true,
-		// Generate source maps for production debugging
 		sourcemap: false,
 	},
-	// Optimize dependencies
-	optimizeDeps: {
-		include: ["react", "react-dom", "swiper"],
-	},
-});
+}));
