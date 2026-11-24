@@ -5,7 +5,7 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist', '.screenshots'] },
+  { ignores: ['dist'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
@@ -28,20 +28,11 @@ export default [
       ...react.configs.recommended.rules,
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
-      // The project does not use PropTypes; props are documented in components.
-      'react/prop-types': 'off',
+      'react/jsx-no-target-blank': 'off',
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
     },
-  },
-  {
-    files: ['scripts/**/*.{js,mjs,cjs}', '*.config.js'],
-    languageOptions: { globals: globals.node },
-  },
-  {
-    files: ['scripts/**/*.cjs'],
-    languageOptions: { sourceType: 'commonjs' },
   },
 ]
